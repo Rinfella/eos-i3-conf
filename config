@@ -209,8 +209,8 @@ bindsym F1 exec --no-startup-id ~/.config/i3/scripts/keyhint-2
 # bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh brightness_up
 # bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh brightness_down
 # Brightness control usingn brightnessctl
-bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+bindsym $mod+F12 exec --no-startup-id brightnessctl set +5%
+bindsym $mod+F11 exec --no-startup-id brightnessctl set 5%-
 
 # change focus
 bindsym $mod+h focus left
