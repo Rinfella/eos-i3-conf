@@ -5,12 +5,14 @@
 #
 # i3blocks blocklet script to monitor bandwidth usage
 
-iface="${BLOCK_INSTANCE}"
+iface="$BLOCK_INSTANCE"
 iface="${IFACE:-$iface}"
 dt="${DT:-3}"
-unit="${UNIT:-MB}"
-LABEL="${LABEL:-<span font='FontAwesome'> </span>}" # down arrow up arrow
-printf_command="${PRINTF_COMMAND:-"printf \"${LABEL}%1.0f/%1.0f %s/s\\n\", rx, wx, unit;"}"
+unit="${UNIT:-KB}"
+LABEL="${LABEL:-<span font='FontAwesome'> </span>}" # down arrow up arrow 
+printf_command="${PRINTF_COMMAND:-"printf \"${LABEL}", rx, wx, unit;"}"
+
+#printf_command="${PRINTF_COMMAND:-"printf \"${LABEL}%1.0f/%1.0f %s/s\\n\", rx, wx, unit;"}"
 
 function default_interface {
     ip route | awk '/^default via/ {print $5; exit}'
@@ -56,7 +58,7 @@ done
 check_proc_net_dev
 
 iface="${iface:-$(default_interface)}"
-while [ -z "$iface" ]; do
+while [ "$iface" = "" ]; do
     echo No default interface
     sleep "$dt"
     iface=$(default_interface)
@@ -76,13 +78,13 @@ esac
 
 scalar=$((bytes_per_unit * dt))
 init_line=$(cat /proc/net/dev | grep "^[ ]*$iface:")
-if [ -z "$init_line" ]; then
+if [ "$init_line" = "" ]; then
     echo Interface not found in /proc/net/dev: "$iface"
     exit 1
 fi
 
-init_received=$(awk '{print $2}' <<< $init_line)
-init_sent=$(awk '{print $10}' <<< $init_line)
+init_received=$(awk '{print $2}' <<< "$init_line")
+init_sent=$(awk '{print $10}' <<< "$init_line")
 
 (while true; do cat /proc/net/dev; sleep "$dt"; done) |\
     stdbuf -oL grep "^[ ]*$iface:" |\
