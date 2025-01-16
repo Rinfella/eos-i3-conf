@@ -331,11 +331,11 @@ set $ws10 "10"
 
 # bind program to workspace and focus to them on startup:
 assign [class="teams"] $ws1
-assign [class="google-chrome"] $ws2
-assign [class="telegram-desktop"] $ws3
+assign [class="Google-Chrome"] $ws2
+assign [class="TelegramDesktop"] $ws3
 
 # automatic set focus new window if it opens on another workspace than the current:
-for_window [class=google-chrome] focus
+for_window [class=Google-Ghrome] focus
 
 ##############
 # compositor #
