@@ -64,7 +64,7 @@ default_border pixel 3
 # for_window [class="^.*"] border pixel 3
 
 # window title alignment
-#title_align center
+title_align center
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -303,6 +303,12 @@ bindsym Print exec --no-startup-id scrot ~/Pictures/screenshots/%Y-%m-%d-%T-scre
 # Power Profiles menu switcher (rofi)
 bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/power-profiles
 
+# Restart xrandr for HDMI displays
+bindsym $mod+Shift+m exec --no-startup-id ~/.screenlayout/monitor.sh
+
+# Move displays across displays
+bindsym $mod+Shift+o exec ~/.config/i3/scripts/swap-workspace
+
 ##########################################
 # configuration for workspace behaviour: #
 ##########################################
@@ -335,7 +341,7 @@ assign [class="Google-chrome"] $ws2
 assign [class="TelegramDesktop"] $ws3
 
 # automatic set focus new window if it opens on another workspace than the current:
-for_window [class=Google-Ghrome] focus
+for_window [class=Google-chrome] focus
 
 ##############
 # compositor #
@@ -396,7 +402,6 @@ exec --no-startup-id dex --autostart --environment i3
 # start a script to setup displays
 # uncomment the next line, use arandr to setup displays and save the file as monitor:
 exec --no-startup-id ~/.screenlayout/monitor.sh
-
 # set wallpaper
 # exec --no-startup-id sleep 2 && nitrogen --restore
 exec --no-startup-id sleep 1 && feh --randomize --bg-fill ~/Pictures/wallpapers/*.png
