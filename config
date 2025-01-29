@@ -145,6 +145,10 @@ bindcode $mod+Shift+80 	 move container to workspace  $ws8
 bindcode $mod+Shift+81 	 move container to workspace  $ws9
 bindcode $mod+Shift+90 	 move container to workspace  $ws10
 
+# Move focused workspace to another monitor
+bindsym $mod+Ctrl+j move workspace to output down
+bindsym $mod+Ctrl+k move workspace to output up
+
 # resize window (you can also use the mouse for that):
 #mode "resize" {
 # These bindings trigger as soon as you enter the resize mode
@@ -331,12 +335,10 @@ set $ws10 "10"
 # you can get from xrandr command
 # workspace $ws1 output eDP
 # workspace $ws2 output HDMI-0
-#workspace $ws3 output HDMI-0
-#workspace $ws4 output HDMI-0
-#workspace $ws5 output HDMI-0
+# workspace $ws3 output HDMI-0
 
 # bind program to workspace and focus to them on startup:
-assign [class="teams"] $ws1
+assign [class="microsoftteams-nativefier-6234c0"] $ws1
 assign [class="Google-chrome"] $ws2
 assign [class="TelegramDesktop"] $ws3
 
@@ -423,23 +425,17 @@ exec --no-startup-id xset s 480 dpms 600 600 600
 
 # Desktop notifications
 # dunst config used ~/.config/dunst/dunstrc
-# set alternative config if needed:
 #exec --no-startup-id /usr/bin/dunst --config ~/.config/dunst/dunstrc
-# may need to run dbus-launch explicitly: 
-#exec --no-startup-id dbus-launch /usr/bin/dunst
 exec --no-startup-id /usr/bin/dunst
-# alternative if you installed aside with XFCE4:
-# exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd &
 
 # autotiling script
 # https://github.com/nwg-piotr/autotiling
-# `yay -S autotiling ;) (it is in AUR)
 exec_always --no-startup-id autotiling
 
 # Autostart apps as you like
 # exec --no-startup-id sleep 2 && telegram-desktop
 exec --no-startup-id sleep 4 && google-chrome-stable
-# exec --no-startup-id sleep 3 && whatsie
+exec --no-startup-id sleep 3 && teams-nativefier
 
 ###############
 # system tray #
@@ -452,9 +448,6 @@ exec --no-startup-id sleep 4 && google-chrome-stable
 
 # networkmanager-applet
 #exec --no-startup-id nm-applet
-
-# clipman-applet
-#exec --no-startup-id xfce4-clipman
 
 ##################
 # floating rules #
