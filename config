@@ -64,7 +64,7 @@ default_border pixel 3
 # for_window [class="^.*"] border pixel 3
 
 # window title alignment
-#title_align center
+title_align center
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -145,6 +145,10 @@ bindcode $mod+Shift+80 	 move container to workspace  $ws8
 bindcode $mod+Shift+81 	 move container to workspace  $ws9
 bindcode $mod+Shift+90 	 move container to workspace  $ws10
 
+# Move focused workspace to another monitor
+bindsym $mod+Ctrl+j move workspace to output down
+bindsym $mod+Ctrl+k move workspace to output up
+
 # resize window (you can also use the mouse for that):
 #mode "resize" {
 # These bindings trigger as soon as you enter the resize mode
@@ -211,8 +215,8 @@ bindsym F1 exec --no-startup-id ~/.config/i3/scripts/keyhint-2
 # bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh brightness_up
 # bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh brightness_down
 # Brightness control usingn brightnessctl
-bindsym $mod+F12 exec --no-startup-id brightnessctl set +5%
-bindsym $mod+F11 exec --no-startup-id brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 
 # change focus
 bindsym $mod+h focus left
@@ -303,6 +307,12 @@ bindsym Print exec --no-startup-id scrot ~/Pictures/screenshots/%Y-%m-%d-%T-scre
 # Power Profiles menu switcher (rofi)
 bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/power-profiles
 
+# Restart xrandr for HDMI displays
+bindsym $mod+Shift+m exec --no-startup-id ~/.screenlayout/monitor.sh
+
+# Move displays across displays
+bindsym $mod+Shift+o exec ~/.config/i3/scripts/swap-workspace
+
 ##########################################
 # configuration for workspace behaviour: #
 ##########################################
@@ -325,17 +335,15 @@ set $ws10 "10"
 # you can get from xrandr command
 # workspace $ws1 output eDP
 # workspace $ws2 output HDMI-0
-#workspace $ws3 output HDMI-0
-#workspace $ws4 output HDMI-0
-#workspace $ws5 output HDMI-0
+# workspace $ws3 output HDMI-0
 
 # bind program to workspace and focus to them on startup:
-assign [class="kitty-terminal"] $ws1
+assign [class="microsoftteams-nativefier-6234c0"] $ws1
+assign [class="Google-chrome"] $ws2
 assign [class="TelegramDesktop"] $ws3
 
 # automatic set focus new window if it opens on another workspace than the current:
-for_window [class=kitty-terminal] focus
-for_window [class=TelegramDesktop] focus
+for_window [class=Google-chrome] focus
 
 ##############
 # compositor #
@@ -396,7 +404,6 @@ exec --no-startup-id dex --autostart --environment i3
 # start a script to setup displays
 # uncomment the next line, use arandr to setup displays and save the file as monitor:
 exec --no-startup-id ~/.screenlayout/monitor.sh
-
 # set wallpaper
 # exec --no-startup-id sleep 2 && nitrogen --restore
 exec --no-startup-id sleep 1 && feh --randomize --bg-fill ~/Pictures/wallpapers/*.png
@@ -418,23 +425,17 @@ exec --no-startup-id xset s 480 dpms 600 600 600
 
 # Desktop notifications
 # dunst config used ~/.config/dunst/dunstrc
-# set alternative config if needed:
 #exec --no-startup-id /usr/bin/dunst --config ~/.config/dunst/dunstrc
-# may need to run dbus-launch explicitly: 
-#exec --no-startup-id dbus-launch /usr/bin/dunst
 exec --no-startup-id /usr/bin/dunst
-# alternative if you installed aside with XFCE4:
-# exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd &
 
 # autotiling script
 # https://github.com/nwg-piotr/autotiling
-# `yay -S autotiling ;) (it is in AUR)
 exec_always --no-startup-id autotiling
 
 # Autostart apps as you like
-#exec --no-startup-id sleep 2 && xfce4-terminal
-#exec --no-startup-id sleep 7 && firefox https://github.com/endeavouros-team/endeavouros-i3wm-setup/blob/main/force-knowledge.md
-#exec --no-startup-id sleep 3 && thunar
+# exec --no-startup-id sleep 2 && telegram-desktop
+exec --no-startup-id sleep 4 && google-chrome-stable
+exec --no-startup-id sleep 3 && teams-nativefier
 
 ###############
 # system tray #
@@ -447,9 +448,6 @@ exec_always --no-startup-id autotiling
 
 # networkmanager-applet
 #exec --no-startup-id nm-applet
-
-# clipman-applet
-#exec --no-startup-id xfce4-clipman
 
 ##################
 # floating rules #
