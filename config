@@ -206,7 +206,7 @@ bindsym $mod+Shift+r restart
 bindsym F1 exec --no-startup-id ~/.config/i3/scripts/keyhint-2
 # alternative
 # keybinding list in editor:
-# bindsym $mod+F1 exec --no-startup-id xed ~/.config/i3/keybindings
+bindsym $mod+F1 exec --no-startup-id xed ~/.config/i3/keybindings
 
 # Backlight control
 # bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight +10 && notify-send "Brightness - $(xbacklight -get | cut -d '.' -f 1)%"
@@ -302,16 +302,13 @@ bindsym $mod+p exec --no-startup-id /usr/local/bin/switch-audio-port
 ## App shortcuts
 #bindsym $mod+w exec --no-startup-id /usr/bin/firefox
 bindsym $mod+e exec --no-startup-id /usr/bin/thunar
-bindsym Print exec --no-startup-id scrot ~/Pictures/screenshots/%Y-%m-%d-%T-screenshot.png && notify-send "Screenshot saved to ~/Pictures/screenshots/$(date +"%Y-%m-%d-%T")-screenshot.png"
+bindsym Print exec --no-startup-id scrot ~/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S-screenshot.png && notify-send "Screenshot saved to ~/Pictures/screenshots/$(date +"%Y-%m-%d-%H-%M-%S")-screenshot.png"
 
 # Power Profiles menu switcher (rofi)
 bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/power-profiles
 
 # Restart xrandr for HDMI displays
 bindsym $mod+Shift+m exec --no-startup-id ~/.screenlayout/monitor.sh
-
-# Move displays across displays
-bindsym $mod+Shift+o exec ~/.config/i3/scripts/swap-workspace
 
 # Scratchpad
 bindsym $mod+Shift+minus move scratchpad
@@ -437,7 +434,7 @@ exec --no-startup-id /usr/bin/dunst
 exec_always --no-startup-id autotiling
 
 # Autostart apps as you like
-# exec --no-startup-id sleep 2 && telegram-desktop
+exec --no-startup-id sleep 2 && telegram-desktop
 exec --no-startup-id sleep 4 && google-chrome-stable
 exec --no-startup-id sleep 3 && teams-nativefier
 
@@ -448,10 +445,10 @@ exec --no-startup-id sleep 3 && teams-nativefier
 # you need to have tray apps started manually one by one:
 
 # start blueberry app for managing bluetooth devices from tray:
-#exec --no-startup-id blueberry-tray
+exec --no-startup-id blueberry-tray
 
 # networkmanager-applet
-#exec --no-startup-id nm-applet
+exec --no-startup-id nm-applet
 
 ##################
 # floating rules #
