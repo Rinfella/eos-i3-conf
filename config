@@ -439,8 +439,9 @@ exec_always --no-startup-id autotiling
 
 # Autostart apps as you like
 exec --no-startup-id sleep 2 && telegram-desktop
-exec --no-startup-id sleep 4 && google-chrome-stable
-exec --no-startup-id sleep 3 && teams-nativefier
+exec --no-startup-id sleep 3 && google-chrome-stable
+exec --no-startup-id sleep 2 && teams-nativefier
+exec --no-startup-id sleep 3 && kdeconnectd
 
 ###############
 # system tray #
