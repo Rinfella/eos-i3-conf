@@ -304,9 +304,17 @@ bindsym $mod+p exec --no-startup-id /usr/local/bin/switch-audio-port
 ## App shortcuts
 #bindsym $mod+w exec --no-startup-id /usr/bin/firefox
 bindsym $mod+e exec --no-startup-id /usr/bin/thunar
-bindsym Print exec --no-startup-id scrot ~/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S-screenshot.png && notify-send "Screenshot saved to ~/Pictures/screenshots/$(date +"%Y-%m-%d-%H-%M-%S")-screenshot.png"
-bindsym $mod+Print exec --no-startup-id scrot -w ~/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S-screenshot.png && notify-send "Screenshot saved to ~/Pictures/screenshots/$(date +"%Y-%m-%d-%H-%M-%S")-screenshot.png"
-bindsym $mod+Shift+Print exec --no-startup-id scrot -s ~/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S-screenshot.png && notify-send "Screenshot saved to ~/Pictures/screenshots/$(date +"%Y-%m-%d-%H-%M-%S")-screenshot.png"
+
+# SCROT TOOL (Screenshot)
+# bindsym Print exec --no-startup-id scrot ~/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S-screenshot.png && notify-send "Screenshot saved to ~/Pictures/screenshots/$(date +"%Y-%m-%d-%H-%M-%S")-screenshot.png"
+# bindsym $mod+Print exec --no-startup-id scrot -u ~/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S-screenshot.png && notify-send "Screenshot saved to ~/Pictures/screenshots/$(date +"%Y-%m-%d-%H-%M-%S")-screenshot.png"
+# bindsym $mod+Shift+Print exec --no-startup-id scrot -s ~/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S-screenshot.png && notify-send "Screenshot saved to ~/Pictures/screenshots/$(date +"%Y-%m-%d-%H-%M-%S")-screenshot.png"
+
+# MAIM TOOL (Screenshot)
+bindsym Print exec --no-startup-id maim ~/Pictures/Screenshots/$(date +"%Y-%m-%d-%H-%M-%S")-screenshot.png && notify-send "Screenshot saved to ~/Pictures/Screenshots/$(date +"%Y-%m-%d-%H-%M-%S")-screenshot.png"
+bindsym $mod+Print exec --no-startup-id maim -i $(xdotool getactivewindow) ~/Pictures/Screenshots/$(date +"%Y-%m-%d-%H-%M-%S")-screenshot.png && notify-send "Screenshot saved to ~/Pictures/Screenshots/$(date +"%Y-%m-%d-%H-%M-%S")-screenshot.png"
+bindsym $mod+Shift+Print exec --no-startup-id maim -s ~/Pictures/Screenshots/$(date +"%Y-%m-%d-%H-%M-%S")-screenshot.png && notify-send "Screenshot saved to ~/Pictures/Screenshots/$(date +"%Y-%m-%d-%H-%M-%S")-screenshot.png"
+
 
 # Power Profiles menu switcher (rofi)
 bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/power-profiles
