@@ -317,7 +317,7 @@ bindsym $mod+Shift+Print exec --no-startup-id maim -s ~/Pictures/Screenshots/$(d
 
 
 # Power Profiles menu switcher (rofi)
-bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/power-profiles
+# bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/power-profiles
 
 # Restart xrandr for HDMI displays
 bindsym $mod+Shift+m exec --no-startup-id ~/.screenlayout/monitor.sh
@@ -351,9 +351,10 @@ set $ws10 "10"
 # workspace $ws3 output HDMI-0
 
 # bind program to workspace and focus to them on startup:
-assign [class="microsoftteams-nativefier-6234c0"] $ws1
+# assign [class="microsoftteams-nativefier-6234c0"] $ws1
+assign [class="Ferdium"] $ws1
 assign [class="Google-chrome"] $ws2
-assign [class="TelegramDesktop"] $ws3
+# assign [class="TelegramDesktop"] $ws3
 
 # automatic set focus new window if it opens on another workspace than the current:
 for_window [class=Google-chrome] focus
@@ -446,9 +447,10 @@ exec --no-startup-id /usr/bin/dunst
 exec_always --no-startup-id autotiling
 
 # Autostart apps as you like
-exec --no-startup-id sleep 2 && telegram-desktop
+# exec --no-startup-id sleep 2 && telegram-desktop
+# exec --no-startup-id sleep 2 && teams-nativefier
 exec --no-startup-id sleep 3 && google-chrome-stable
-exec --no-startup-id sleep 2 && teams-nativefier
+exec --no-startup-id sleep 2 && ferdium
 exec --no-startup-id sleep 3 && kdeconnectd
 
 ###############
