@@ -16,6 +16,9 @@ TMPBG=/tmp/lockscreen.png
 # Blur + dim it using imagemagick
 convert "$WALLPAPER" -blur 0x8 -fill black -colorize 20% "$TMPBG"
 
+# Pause notifications while locked
+dunstctl set-paused true
+ 
 # Now lock the screen with the processed image
 i3lock \
     --image "$TMPBG" \
@@ -45,3 +48,5 @@ i3lock \
     --time-str="%H:%M:%S" \
     --date-str="%A, %Y-%m-%d"
 
+# Resume notifications after unlocking
+dunstctl set-paused false
