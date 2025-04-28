@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 #
-# i3blocks blocklet script to monitor bandwidth usage
+# i3blocks blocklet script to monitor total bandwidth usage
 
 # Default values
 iface="${IFACE:-$(ip route | awk '/^default via/ {print $5; exit}')}"
 dt="${DT:-3}"
-unit="${UNIT:-KB}"
 LABEL="${LABEL:-ᯤ}"
 
 # Check if /proc/net/dev exists
@@ -20,25 +19,10 @@ if ! grep -q "^[ ]*$iface:" /proc/net/dev; then
     exit 1
 fi
 
-# Set the divisor based on unit
-case "$unit" in
-    Kb|Kbit|Kbits)     bytes_per_unit=$((1024 / 8)) ;;
-    KB|KByte|KBytes)   bytes_per_unit=$((1024)) ;;
-    Mb|Mbit|Mbits)     bytes_per_unit=$((1024 * 1024 / 8)) ;;
-    MB|MByte|MBytes)   bytes_per_unit=$((1024 * 1024)) ;;
-    Gb|Gbit|Gbits)     bytes_per_unit=$((1024 * 1024 * 1024 / 8)) ;;
-    GB|GByte|GBytes)   bytes_per_unit=$((1024 * 1024 * 1024)) ;;
-    Tb|Tbit|Tbits)     bytes_per_unit=$((1024 * 1024 * 1024 * 1024 / 8)) ;;
-    TB|TByte|TBytes)   bytes_per_unit=$((1024 * 1024 * 1024 * 1024)) ;;
-    *)  echo "Invalid unit: $unit" && exit 1 ;;
-esac
-
-scalar=$((bytes_per_unit * dt))
-
 # Get initial values
 init_line=$(grep "^[ ]*$iface:" /proc/net/dev)
-init_received=$(echo "$init_line" | awk '{print $2}')
-init_sent=$(echo "$init_line" | awk '{print $10}')
+old_received=$(echo "$init_line" | awk '{print $2}')
+old_sent=$(echo "$init_line" | awk '{print $10}')
 
 # Monitor bandwidth
 (while true; do
@@ -46,17 +30,39 @@ init_sent=$(echo "$init_line" | awk '{print $10}')
     sleep "$dt"
 done) |
     stdbuf -oL grep "^[ ]*$iface:" |
-    awk -v scalar="$scalar" -v unit="$unit" -v label="$LABEL" '
-    BEGIN{old_received='"$init_received"';old_sent='"$init_sent"'}
+    awk -v dt="$dt" -v label="$LABEL" '
+    BEGIN {
+        old_received='"$old_received"';
+        old_sent='"$old_sent"';
+    }
     {
         received=$2
         sent=$10
-        rx=(received-old_received)/scalar;
-        wx=(sent-old_sent)/scalar;
-        old_received=received;
-        old_sent=sent;
-        if(rx >= 0 && wx >= 0){
-            printf "%s %1.0f/%1.0f %s/s\n", label, rx, wx, unit;
-            fflush(stdout);
+        total_bytes=(received - old_received) + (sent - old_sent)
+        old_received=received
+        old_sent=sent
+
+        if (total_bytes < 0) next
+
+        rate = total_bytes / dt  # bytes per second
+
+        if (rate >= 1024*1024*1024) {
+            speed = rate / (1024*1024*1024)
+            unit = "GB/s"
+            printf "%s %.1f %s\n", label, speed, unit
+        } else if (rate >= 1024*1024) {
+            speed = rate / (1024*1024)
+            unit = "MB/s"
+            printf "%s %.1f %s\n", label, speed, unit
+        } else if (rate >= 1024) {
+            speed = rate / 1024
+            unit = "KB/s"
+            printf "%s %.0f %s\n", label, speed, unit
+        } else {
+            speed = rate
+            unit = "B/s"
+            printf "%s %.0f %s\n", label, speed, unit
         }
+        fflush(stdout)
     }'
+
