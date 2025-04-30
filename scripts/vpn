@@ -18,7 +18,7 @@ elif [ "${nordvpn_output}" = "A new version of NordVPN is available! Please upda
     fi
 elif [ "${nordvpn_output}" = "Status: Disconnected" ]; then
     vpnstatus="📢"
-elif [[ "$nordvpn_output" == *\/* ]] || [[ "$nordvpn_output" == *\\* ]]; then
+elif [[ "$nordvpn_output" == */* ]] || [[ "$nordvpn_output" == *\\* ]]; then
     vpnstatus="Something's very wrong"
 fi
 

@@ -1,106 +1,100 @@
 #!/usr/bin/env python3
-#
-# Copyright (C) 2016 James Murphy
-# Licensed under the GPL version 2 only
-#
-# A battery indicator blocklet script for i3blocks
+# Battery indicator blocklet for i3blocks
 
-from subprocess import check_output
 import os
 import re
+import subprocess
+import sys
 
-config = dict(os.environ)
-status = check_output(['acpi'], universal_newlines=True)
 
-if not status:
-    # stands for no battery found
-    color = config.get("color_10", "red")
-    fulltext = "<span color='{}'><span font='FontAwesome'>\uf00d \uf240</span></span>".format(color)
-    percentleft = 100
-else:
-    # if there is more than one battery in one laptop, the percentage left is
-    # available for each battery separately, although state and remaining
-    # time for overall block is shown in the status of the first battery
-    batteries = status.split("\n")
-    state_batteries=[]
-    commasplitstatus_batteries=[]
-    percentleft_batteries=[]
+def get_color(percent, config):
+    thresholds = [
+        (10, config.get("color_10", "#FFFFFF")),
+        (20, config.get("color_20", "#FF3300")),
+        (30, config.get("color_30", "#FF6600")),
+        (40, config.get("color_40", "#FF9900")),
+        (50, config.get("color_50", "#FFCC00")),
+        (60, config.get("color_60", "#FFFF00")),
+        (70, config.get("color_70", "#FFFF33")),
+        (80, config.get("color_80", "#FFFF66")),
+    ]
+    for limit, color in thresholds:
+        if percent < limit:
+            return color
+    return config.get("color_full", "#FFFFFF")
+
+
+def parse_acpi_output(output):
+    status_lines = output.strip().splitlines()
+    states = []
+    percents = []
     time = ""
-    for battery in batteries:
-        if battery!='':
-            state_batteries.append(battery.split(": ")[1].split(", ")[0])
-            commasplitstatus = battery.split(", ")
-            if not time:
-                time = commasplitstatus[-1].strip()
-                # check if it matches a time
-                time = re.match(r"(\d+):(\d+)", time)
-                if time:
-                    time = ":".join(time.groups())
-                    timeleft = " ({})".format(time)
-                else:
-                    timeleft = ""
 
-            p = int(commasplitstatus[1].rstrip("%\n"))
-            if p>0:
-                percentleft_batteries.append(p)
-            commasplitstatus_batteries.append(commasplitstatus)
-    state = state_batteries[0]
-    commasplitstatus = commasplitstatus_batteries[0]
-    if percentleft_batteries:
-        percentleft = int(sum(percentleft_batteries)/len(percentleft_batteries))
-    else:
-        percentleft = 0
+    for line in status_lines:
+        try:
+            _, info = line.split(": ", 1)
+            fields = [x.strip() for x in info.split(",")]
+            state = fields[0]
+            percent = int(fields[1].rstrip("%"))
 
-    # stands for charging
-    color = config.get("color_charging", "yellow")
-    FA_LIGHTNING = "<span color='{}'><span font='FontAwesome'>\uf0e7</span></span>".format(color)
+            states.append(state)
+            if percent > 0:
+                percents.append(percent)
 
-    # stands for plugged in
-    FA_PLUG = "<span font='FontAwesome'>\uf1e6</span>"
+            if not time and len(fields) > 2:
+                m = re.match(r"(\d+):(\d+)", fields[2])
+                if m:
+                    time = ":".join(m.groups())
+        except (IndexError, ValueError):
+            continue
 
-    # stands for using battery
-    FA_BATTERY = "<span font='FontAwesome'>\uf240</span>"
+    return states[0] if states else "Unknown", percents, time
 
-    # stands for unknown status of battery
-    FA_QUESTION = "<span font='FontAwesome'>\uf128</span>"
 
+def icon_markup(fontawesome, color=None):
+    icon = f"<span font='FontAwesome'>{fontawesome}</span>"
+    return f"<span color='{color}'>{icon}</span>" if color else icon
+
+
+def main():
+    config = dict(os.environ)
+
+    try:
+        acpi_output = subprocess.check_output(
+            ['acpi'], universal_newlines=True)
+    except subprocess.CalledProcessError:
+        acpi_output = ""
+
+    if not acpi_output.strip():
+        # No battery
+        dead_icon = icon_markup('\uf00d \uf240', config.get("color_10", "red"))
+        print(dead_icon)
+        print(dead_icon)
+        return
+
+    state, percents, time = parse_acpi_output(acpi_output)
+    percent = int(sum(percents) / len(percents)) if percents else 0
+    color = get_color(percent, config)
 
     if state == "Discharging":
-        fulltext = FA_BATTERY + " "
+        icon = icon_markup("\uf240")
     elif state == "Full":
-        fulltext = FA_PLUG + " "
-        timeleft = ""
+        icon = icon_markup("\uf1e6")  # Plug
     elif state == "Unknown":
-        fulltext = FA_QUESTION + " " + FA_BATTERY + " "
-        timeleft = ""
+        icon = icon_markup("\uf128") + " " + \
+            icon_markup("\uf240")  # Question + Battery
     else:
-        fulltext = FA_LIGHTNING + " " + FA_PLUG + " "
+        icon = icon_markup("\uf0e7", config.get(
+            "color_charging", "yellow")) + " " + icon_markup("\uf1e6")
 
-    def color(percent):
-        if percent < 10:
-            # exit code 33 will turn background red
-            return config.get("color_10", "#FFFFFF")
-        if percent < 20:
-            return config.get("color_20", "#FF3300")
-        if percent < 30:
-            return config.get("color_30", "#FF6600")
-        if percent < 40:
-            return config.get("color_40", "#FF9900")
-        if percent < 50:
-            return config.get("color_50", "#FFCC00")
-        if percent < 60:
-            return config.get("color_60", "#FFFF00")
-        if percent < 70:
-            return config.get("color_70", "#FFFF33")
-        if percent < 80:
-            return config.get("color_80", "#FFFF66")
-        return config.get("color_full", "#FFFFFF")
+    fulltext = f"{icon} <span color='{color}'>{percent}%</span>"
 
-    form =  '<span color="{}">{}%</span>'
-    fulltext += form.format(color(percentleft), percentleft)
-    #fulltext += timeleft
+    print(fulltext)
+    print(fulltext)
 
-print(fulltext)
-print(fulltext)
-if percentleft < 10:
-    exit(33)
+    if percent < 10:
+        sys.exit(33)
+
+
+if __name__ == "__main__":
+    main()

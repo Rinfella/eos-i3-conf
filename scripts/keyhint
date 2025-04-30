@@ -8,13 +8,13 @@ Main() {
         --column=key: --column=description: --column=command:
         "ESC" "close this app" ""
         "=" "modkey" "(set mod Mod4)"
-        "+enter" "open a terminal" ""
+        "+Enter" "open a terminal" ""
         "+Shift+n" "new empty workspace" ""
-        "+w" "open Browser" ""
-        "+n" "open Filebrowser" ""
-        "+d" "app menu" ""
+        "+e" "open Filebrowser" ""
+        "+Space" "app menu" ""
         "+q" "close focused app" ""
         "Print-key" "screenshot" ""
+        "+Print-key" "screenshot current window" ""
         "+Shift+e" "logout menu" ""
         "F1" "open keybinding helper" ""
     )
