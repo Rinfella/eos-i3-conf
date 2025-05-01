@@ -66,10 +66,11 @@ set $black		    #000000
 set $purple		    #e345ff
 set $lightpurple	#d787ff
 set $darkgrey		#383c4a
-set $lightgrey      #2e3440
+set $lightgrey      #f0f0f0
 set $grey		    #b0b5bd
 set $mediumgrey		#8b8b8b
 set $yellowbrown	#e1b700
+set $black          #000000
 
 # define colors for windows:
 #class		        	border		bground		text		indicator	child_border
@@ -94,7 +95,7 @@ bar {
     
     colors {
         separator          $lightpurple
-        background         $lightgrey
+        background         $black
         statusline         $white
         #                  border 		    bg		    txt		    indicator
         focused_workspace	$mediumgrey	    $grey		$darkgrey	$purple
