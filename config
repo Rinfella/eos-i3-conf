@@ -71,6 +71,7 @@ set $grey		    #b0b5bd
 set $mediumgrey		#8b8b8b
 set $yellowbrown	#e1b700
 set $black          #000000
+set $lightblack     #232b2b
 
 # define colors for windows:
 #class		        	border		bground		text		indicator	child_border
@@ -95,7 +96,7 @@ bar {
     
     colors {
         separator          $lightpurple
-        background         $black
+        background         $lightblack
         statusline         $white
         #                  border 		    bg		    txt		    indicator
         focused_workspace	$mediumgrey	    $grey		$darkgrey	$purple
@@ -126,6 +127,15 @@ bindsym $mod+Escape exec --no-startup-id ~/.config/i3/scripts/lock-screen
 
 # Help menu for keybindings
 bindsym $mod+F1 exec --no-startup-id ~/.config/i3/scripts/keyhint-2
+
+# Custom monitor configuration
+bindsym $mod+Shift+m exec --no-startup-id ~/.screenlayout/monitor.sh
+
+# Power Profiles Switcher
+bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/power-profiles
+
+# Audio port switcher
+# bindsym $mod+p exec --no-startup-id /usr/local/bin/switch-audio-port
 
 # Window/Container Control
 # Focus movement - vim-style
@@ -247,13 +257,13 @@ bindsym $mod+F11 exec --no-startup-id brightnessctl set 5%-
 ####################
 
 # Full screen screenshot
-bindsym Print exec --no-startup-id maim ~/Pictures/Screenshots/$(date +"%Y-%m-%d-%H-%M-%S")-screenshot.png && notify-send "Screenshot saved"
+bindsym Print exec --no-startup-id maim ~/Pictures/screenshots/$(date +"%Y-%m-%d-%H-%M-%S")-screenshot.png && notify-send "Screenshot saved"
 
 # Active window screenshot
-bindsym $mod+Print exec --no-startup-id maim -i $(xdotool getactivewindow) ~/Pictures/Screenshots/$(date +"%Y-%m-%d-%H-%M-%S")-screenshot.png && notify-send "Window screenshot saved"
+bindsym $mod+Print exec --no-startup-id maim -i $(xdotool getactivewindow) ~/Pictures/screenshots/$(date +"%Y-%m-%d-%H-%M-%S")-screenshot.png && notify-send "Window screenshot saved"
 
 # Selection screenshot
-bindsym $mod+Shift+Print exec --no-startup-id maim -s ~/Pictures/Screenshots/$(date +"%Y-%m-%d-%H-%M-%S")-screenshot.png && notify-send "Selection screenshot saved"
+bindsym $mod+Shift+Print exec --no-startup-id maim -s ~/Pictures/screenshots/$(date +"%Y-%m-%d-%H-%M-%S")-screenshot.png && notify-send "Selection screenshot saved"
 
 # Screenshot to clipboard
 bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png && notify-send "Screenshot copied to clipboard"
@@ -331,8 +341,4 @@ exec --no-startup-id sleep 6 && kdeconnectd
 exec --no-startup-id blueberry-tray
 exec --no-startup-id nm-applet
 
-# Custom monitor configuration
-bindsym $mod+Shift+m exec --no-startup-id ~/.screenlayout/monitor.sh
 
-# Audio port switcher
-bindsym $mod+p exec --no-startup-id /usr/local/bin/switch-audio-port
