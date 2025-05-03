@@ -1,0 +1,15 @@
+#!/bin/bash
+
+ICON_ON="" # Font Awesome Bluetooth icon
+ICON_OFF="" # Font Awesome Bluetooth icon (dimmed)
+
+if bluetoothctl show | grep -q "Powered: yes"; then
+    if DEVICE=$(bluetoothctl info | grep "Name" | cut -d ' ' -f 2-); then
+        echo "$ICON_ON $DEVICE"
+    else
+        echo "$ICON_ON On"
+    fi
+else
+    echo "$ICON_OFF Off"
+fi
+
