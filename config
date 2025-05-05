@@ -339,7 +339,6 @@ exec --no-startup-id sleep 4 && google-chrome-stable
 exec --no-startup-id sleep 6 && kdeconnectd
 
 # System tray applications
-exec --no-startup-id blueberry-tray
 exec --no-startup-id nm-applet
 
 
