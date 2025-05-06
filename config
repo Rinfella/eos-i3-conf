@@ -316,7 +316,7 @@ exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # Autostart applications using dex
-exec --no-startup-id dex --autostart --environment i3
+# exec --no-startup-id dex --autostart --environment i3
 
 # Display configuration
 exec_always --no-startup-id ~/.screenlayout/monitor.sh
