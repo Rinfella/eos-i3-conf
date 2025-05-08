@@ -1,0 +1,36 @@
+#!/bin/bash
+#
+# FortiClient VPN status indicator for i3blocks/i3status
+
+# Configuration
+# You can customize these icons
+ICON_CONNECTED="󰖂"
+COLOR_CONNECTED="#00FF00"
+
+# Check if FortiClient VPN is connected
+check_forticlient_status() {
+    # Check for the FortiClient VPN interface (fctvpn*)
+    if ip addr show | grep -i "fctvpn" > /dev/null; then
+        # Get the interface name for display
+        VPN_INTERFACE=$(ip addr show | grep -i "fctvpn" | awk -F': ' '{print $2}')
+        export VPN_INTERFACE
+        return 0  # Connected
+    fi
+    
+    return 1  # Not connected
+}
+
+# Main execution
+if check_forticlient_status; then
+    # Get the IP address of the VPN interface
+    VPN_IP=$(ip addr show "$VPN_INTERFACE" | grep "inet " | awk '{print $2}' | cut -d/ -f1)
+    
+    echo "$ICON_CONNECTED"  # Short text (icon only)
+    echo "$ICON_CONNECTED $VPN_INTERFACE: $VPN_IP"  # Full text (with details for tooltip)
+    echo "$COLOR_CONNECTED"
+else
+    # Display nothing on the bar if not connected
+    echo ""
+    echo ""
+    echo ""
+fi
