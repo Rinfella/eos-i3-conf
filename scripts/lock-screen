@@ -14,8 +14,11 @@ WHITE='#FFFFFF'
 # === Pause notifications ===
 dunstctl set-paused true
 
+# === Ensure notifications are resumed on script exit ===
+trap 'dunstctl set-paused false' EXIT
+
 # === Lock screen with blur only ===
-i3lock \
+i3lock --nofork \
     --blur 8 \
     --screen 1 \
     --clock \
@@ -38,7 +41,4 @@ i3lock \
     --layout-color="$CLEAR" \
     --keyhl-color="$GREEN" \
     --bshl-color="$RED"
-
-# === Resume notifications ===
-dunstctl set-paused false
 

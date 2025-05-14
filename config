@@ -134,6 +134,18 @@ bindsym $mod+Shift+m exec --no-startup-id ~/.screenlayout/monitor.sh
 # Power Profiles Switcher
 bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/power-profiles
 
+# Bluetooth toggle 
+bindsym $mod+Shift+b exec --no-startup-id sudo /usr/bin/rfkill toggle bluetooth 
+# Bluetooth men
+bindsym $mod+b exec --no-startup-id kitty -e bluetui
+
+# Dunst notification keybinds 
+bindsym $mod+x exec --no-startup-id dunstctl close
+bindsym $mod+c exec --no-startup-id dunstctl context
+bindsym $mod+Shift+x exec --no-startup-id dunstctl close-all
+bindsym $mod+Shift+z exec --no-startup-id dunstctl history-pop
+
+
 # Audio port switcher
 # bindsym $mod+p exec --no-startup-id /usr/local/bin/switch-audio-port
 
@@ -328,7 +340,7 @@ exec_always --no-startup-id sleep 1 && feh --randomize --bg-fill ~/Pictures/wall
 exec --no-startup-id xset s 600 dpms 0 0 800
 
 # Notifications
-exec_always --no-startup-id /usr/bin/dunst
+exec_always --no-startup-id /usr/bin/dunst -config ~/.config/dunst/dunstrc
 
 # Auto-tiling
 exec_always --no-startup-id autotiling
@@ -339,6 +351,4 @@ exec --no-startup-id sleep 4 && google-chrome-stable
 exec --no-startup-id sleep 6 && kdeconnectd
 
 # System tray applications
-exec --no-startup-id nm-applet
-
-
+exec_always --no-startup-id nm-applet
