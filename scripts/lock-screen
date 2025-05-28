@@ -24,7 +24,7 @@ i3lock --nofork \
     --clock \
     --indicator \
     --time-str="%H:%M:%S" \
-    --date-str="%A, %Y-%m-%d" \
+    --date-str="%a, %Y-%m-%d" \
     \
     --insidever-color="$CLEAR" \
     --ringver-color="$BLUE" \
