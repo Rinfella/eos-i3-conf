@@ -96,7 +96,7 @@ bar {
     
     colors {
         separator          $lightpurple
-        background         $lightblack
+        background         $darkblue
         statusline         $white
         #                  border 		    bg		    txt		    indicator
         focused_workspace	$mediumgrey	    $grey		$darkgrey	$purple
