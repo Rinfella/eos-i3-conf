@@ -130,6 +130,7 @@ bindsym $mod+F1 exec --no-startup-id ~/.config/i3/scripts/keyhint-2
 
 # Custom monitor configuration
 bindsym $mod+Shift+m exec --no-startup-id ~/.screenlayout/monitor.sh
+bindsym $mod+m exec --no-startup-id ~/.screenlayout/mirror.sh
 
 # Power Profiles Switcher
 bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/power-profiles
@@ -288,9 +289,9 @@ bindsym Ctrl+Shift+Print exec --no-startup-id maim -s | xclip -selection clipboa
 ####################
 
 # Assign applications to specific workspaces
-assign [class="Ferdium"] $ws1
+assign [class="microsoftteams-nativefier-6234c0"] $ws1
+assign [class="TelegramDesktop"] $ws1
 assign [class="Google-chrome"] $ws2
-# assign [class="TelegramDesktop"] $ws3
 
 # Set focus on apps when they open on another workspace
 for_window [class=Google-chrome] focus
@@ -331,7 +332,7 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # exec --no-startup-id dex --autostart --environment i3
 
 # Display configuration
-exec_always --no-startup-id ~/.screenlayout/monitor.sh
+exec_always --no-startup-id ~/.screenlayout/mirror.sh
 
 # Set wallpaper - randomized
 exec_always --no-startup-id sleep 1 && feh --randomize --bg-fill ~/Pictures/wallpapers/*.png
@@ -346,7 +347,7 @@ exec_always --no-startup-id /usr/bin/dunst -config ~/.config/dunst/dunstrc
 exec_always --no-startup-id autotiling
 
 # Optimized application startup with staggered delays
-exec --no-startup-id sleep 2 && ferdium
+exec --no-startup-id sleep 2 && teams
 exec --no-startup-id sleep 4 && google-chrome-stable
 exec --no-startup-id sleep 6 && kdeconnectd
 
