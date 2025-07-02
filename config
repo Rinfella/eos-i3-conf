@@ -259,12 +259,11 @@ bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # Brightness control
-bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/volume_brightness brightness_up
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/volume_brightness brightness_down
 # Alternative bindings for laptops without dedicated keys
-bindsym $mod+F12 exec --no-startup-id brightnessctl set +5%
-bindsym $mod+F11 exec --no-startup-id brightnessctl set 5%-
-
+bindsym $mod+F12 exec --no-startup-id ~/.config/i3/scripts/volume_brightness brightness_up
+bindsym $mod+F11 exec --no-startup-id ~/.config/i3/scripts/volume_brightness brightness_down
 ####################
 # Screenshot Tools
 ####################

@@ -5,3 +5,13 @@
 > > Also I cannot afford to break my system rn.
 > >
 > > > Not gonna lie, EOS has pretty good default scripts. Check the `scripts/` directory.
+
+## Dependencies
+
+There are some tools included in these configurations that needs to be preinstalled for some of the scripts to work.
+Here are the package names:
+
+- `autotiling`
+- `brightnessctl`
+- `bc`
+- `maim`

@@ -2,7 +2,7 @@
 # original source: https://gitlab.com/Nmoleo/i3-volume-brightness-indicator
 
 volume_step=1
-brightness_step=2.5
+brightness_step=5
 max_volume=100
 notif_id=1001 # Unique ID for notification replacement
 
@@ -18,7 +18,7 @@ function get_mute {
 
 # Uses regex to get brightness from xbacklight
 function get_brightness {
-	xbacklight | grep -Po '[0-9]{1,3}' | head -n 1
+	brightnessctl get | head -n 1
 }
 
 # Returns a mute icon, a volume-low icon, or a volume-high icon, depending on the volume
@@ -48,7 +48,10 @@ function show_volume_notif {
 
 # Displays a brightness notification using notify-send
 function show_brightness_notif {
-	brightness=$(get_brightness)
+	brightness_raw=$(get_brightness)
+    # Because the ax brightness is 255 on this thinkpad,
+    # we need to adjust for dunst notifications.
+    brightness=$(printf "%.0f" $(echo "scale=2; ($brightness_raw/255) * 100" | bc -l))
 	get_brightness_icon
 	notify-send -u low -r "$notif_id" "$brightness_icon    " -h int:value:"$brightness"
 }
@@ -77,12 +80,12 @@ volume_mute)
 	;;
 
 brightness_up)
-	xbacklight -inc "$brightness_step" -time 0
+	brightnessctl set +$brightness_step%
 	show_brightness_notif
 	;;
 
 brightness_down)
-	xbacklight -dec "$brightness_step" -time 0
+	brightnessctl set $brightness_step%-
 	show_brightness_notif
 	;;
 esac
