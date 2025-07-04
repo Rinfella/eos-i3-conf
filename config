@@ -129,7 +129,8 @@ bindsym $mod+Escape exec --no-startup-id ~/.config/i3/scripts/lock-screen
 bindsym $mod+F1 exec --no-startup-id ~/.config/i3/scripts/keyhint-2
 
 # Custom monitor configuration
-bindsym $mod+Shift+m exec --no-startup-id ~/.screenlayout/monitor.sh
+bindsym $mod+Shift+s exec --no-startup-id ~/.screenlayout/single.sh
+bindsym $mod+Shift+m exec --no-startup-id ~/.screenlayout/extended.sh
 bindsym $mod+m exec --no-startup-id ~/.screenlayout/mirror.sh
 
 # Power Profiles Switcher
@@ -283,9 +284,9 @@ bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t ima
 # Selection screenshot to clipboard
 bindsym Ctrl+Shift+Print exec --no-startup-id maim -s | xclip -selection clipboard -t image/png && notify-send "Selection copied to clipboard"
 
-####################
-# Application Assignments
-####################
+########################################
+# Application Workspace Assignments
+########################################
 
 # Assign applications to specific workspaces
 assign [class="microsoftteams-nativefier-6234c0"] $ws1
@@ -317,9 +318,9 @@ for_window [class="urxvt"] border pixel 1
 # Center all floating windows
 for_window [class=".*"] move position center
 
-####################
+############################
 # Startup Applications
-####################
+############################
 
 # Compositor
 exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
@@ -331,7 +332,7 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # exec --no-startup-id dex --autostart --environment i3
 
 # Display configuration
-exec_always --no-startup-id ~/.screenlayout/monitor.sh
+exec --no-startup-id ~/.screenlayout/single.sh
 
 # Set wallpaper - randomized
 exec_always --no-startup-id sleep 1 && feh --randomize --bg-fill ~/Pictures/wallpapers/*.png
@@ -345,10 +346,11 @@ exec_always --no-startup-id /usr/bin/dunst -config ~/.config/dunst/dunstrc
 # Auto-tiling
 exec_always --no-startup-id autotiling
 
+# System tray applications
+exec_always --no-startup-id nm-applet
+
 # Optimized application startup with staggered delays
 exec --no-startup-id sleep 2 && teams
 exec --no-startup-id sleep 4 && google-chrome-stable
 exec --no-startup-id sleep 4 && kdeconnectd
 
-# System tray applications
-exec_always --no-startup-id nm-applet
