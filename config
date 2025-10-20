@@ -311,6 +311,7 @@ for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
 for_window [class="Blueberry.py" instance="blueberry.py"] floating enable
 for_window [class="Bluetooth-sendto" instance="bluetooth-sendto"] floating enable
 for_window [class="Google-chrome" instance="crx_cinhimbnkkaeohfgghhklpknlkffjgod"] floating enable
+for_window [class="Google-chrome" instance="crx_ahiigpfcghkbjfcibpojancebdfjmoop"] floating enable
 
 # Set border of floating window
 for_window [class="urxvt"] border pixel 1
