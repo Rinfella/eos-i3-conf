@@ -32,7 +32,7 @@ i3lock --nofork \
     --ringwrong-color="$RED" \
     --inside-color="$CLEAR" \
     --ring-color="$BLUE" \
-    --line-color="$GREEN" \
+    --line-color="$YELLOW" \
     --separator-color="$YELLOW" \
     --verif-color="$BLUE" \
     --wrong-color="$RED" \
