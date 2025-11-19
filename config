@@ -289,7 +289,7 @@ bindsym Ctrl+Shift+Print exec --no-startup-id maim -s | xclip -selection clipboa
 ########################################
 
 # Assign applications to specific workspaces
-assign [class="microsoftteams-nativefier-6234c0"] $ws1
+assign [class="teams-for-linux"] $ws1
 assign [class="TelegramDesktop"] $ws1
 assign [class="Google-chrome"] $ws2
 
