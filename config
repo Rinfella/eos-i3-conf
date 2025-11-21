@@ -255,9 +255,9 @@ bindsym $mod+XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DE
 bindsym XF86AudioMicMute exec amixer sset Capture toggle
 
 # Media player controls
-#bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
-#bindsym XF86AudioNext exec --no-startup-id playerctl next
-#bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # Brightness control
 bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/volume_brightness brightness_up
