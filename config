@@ -354,4 +354,5 @@ exec_always --no-startup-id nm-applet
 exec --no-startup-id sleep 2 && teams
 exec --no-startup-id sleep 4 && google-chrome-stable
 exec --no-startup-id sleep 4 && kdeconnectd
+exec --no-startup-id sleep 4 && easyeffects --gapplication-service
 
