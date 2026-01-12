@@ -259,6 +259,10 @@ bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
 bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
+bindsym $mod+F9 exec --no-startup-id playerctl play-pause
+bindsym $mod+F10 exec --no-startup-id playerctl next
+bindsym $mod+F8 exec --no-startup-id playerctl previous
+
 # Brightness control
 bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/volume_brightness brightness_up
 bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/volume_brightness brightness_down
