@@ -50,9 +50,11 @@ GetOptions("help|h" => \&help,
 open (SENSORS, "sensors -u $chip |") or die;
 while (<SENSORS>) {
     if (/^\s+temp\d+_input:\s+[\+]*([\-]*\d+\.\d)/) {
-        $temperature = $1;
-        # Only break if the temperature found is actually a real number (not 0 or N/A)
-        last if $temperature != 0; 
+        my $val = $1;
+        if ($val != 0) {
+            $temperature = $val;
+            last; # Exit once we have the first valid reading
+        }
     }
 }
 close(SENSORS);

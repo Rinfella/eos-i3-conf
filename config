@@ -19,16 +19,16 @@ set $mod Mod4
 workspace_layout default
 
 # Define names for default workspaces with icons for better visual organization
-set $ws1 "1:󰭹"
-set $ws2 "2:󰖟"
-set $ws3 "3:󰧮"
-set $ws4 "4:󰧮"
-set $ws5 "5:󰧮"
-set $ws6 "6:󰧮"
-set $ws7 "7:󰧮"
-set $ws8 "8:󰧮"
-set $ws9 "9:󰧮"
-set $ws10 "10:󰧮"
+set $ws1 "1:1"
+set $ws2 "2:2"
+set $ws3 "3:3"
+set $ws4 "4:4"
+set $ws5 "5:5"
+set $ws6 "6:6"
+set $ws7 "7:7"
+set $ws8 "8:8"
+set $ws9 "9:9"
+set $ws10 "10:10"
 
 ##############################
 # extra options for windows: #
@@ -328,7 +328,7 @@ for_window [class=".*"] move position center
 ############################
 
 # Compositor
-exec_always --no-startup-id killall picom; picom --config ~/.config/picom/picom.conf
+exec picom --config ~/.config/picom/picom.conf
 
 # Authentication agent
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -355,8 +355,8 @@ exec --no-startup-id autotiling
 exec --no-startup-id nm-applet
 
 # Optimized application startup with staggered delays
-exec --no-startup-id sleep 2 && teams
-exec --no-startup-id sleep 4 && google-chrome-stable
+exec --no-startup-id sleep 2 && teams > /dev/null 2>&1
+exec --no-startup-id sleep 4 && google-chrome-stable > /dev/null 2>&1
 exec --no-startup-id sleep 4 && kdeconnectd
 exec --no-startup-id sleep 4 && easyeffects --gapplication-service
 
