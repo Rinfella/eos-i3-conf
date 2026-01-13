@@ -346,10 +346,10 @@ exec_always --no-startup-id sleep 1 && feh --randomize --bg-fill ~/Pictures/wall
 exec --no-startup-id xset s 600 dpms 0 0 800
 
 # Notifications
-exec /usr/bin/dunst -config ~/.config/dunst/dunstrc
+exec_always --no-startup-id killall dunst; /usr/bin/dunst -config ~/.config/dunst/dunstrc
 
 # Auto-tiling
-exec --no-startup-id autotiling
+exec_always --no-startup-id autotiling
 
 # System tray applications
 exec --no-startup-id nm-applet
