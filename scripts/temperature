@@ -49,9 +49,10 @@ GetOptions("help|h" => \&help,
 # Get chip temperature
 open (SENSORS, "sensors -u $chip |") or die;
 while (<SENSORS>) {
-    if (/^\s+temp1_input:\s+[\+]*([\-]*\d+\.\d)/) {
+    if (/^\s+temp\d+_input:\s+[\+]*([\-]*\d+\.\d)/) {
         $temperature = $1;
-        last;
+        # Only break if the temperature found is actually a real number (not 0 or N/A)
+        last if $temperature != 0; 
     }
 }
 close(SENSORS);
