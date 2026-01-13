@@ -51,7 +51,7 @@ function show_brightness_notif {
 	brightness_raw=$(get_brightness)
     # Because the ax brightness is 255 on this thinkpad,
     # we need to adjust for dunst notifications.
-    brightness=$(printf "%.0f" $(echo "scale=2; ($brightness_raw/$(brightnessctl m)) * 100" | bc -l))
+    brightness=$(printf "%.0f" "$(echo "scale=2; ($brightness_raw/$(brightnessctl m)) * 100" | bc -l)")
 	get_brightness_icon
 	notify-send -u low -r "$notif_id" "$brightness_icon    " -h int:value:"$brightness"
 }
