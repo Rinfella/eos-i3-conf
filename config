@@ -328,7 +328,7 @@ for_window [class=".*"] move position center
 ############################
 
 # Compositor
-exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
+exec_always --no-startup-id killall picom; picom --config ~/.config/picom/picom.conf
 
 # Authentication agent
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -346,13 +346,13 @@ exec_always --no-startup-id sleep 1 && feh --randomize --bg-fill ~/Pictures/wall
 exec --no-startup-id xset s 600 dpms 0 0 800
 
 # Notifications
-exec_always --no-startup-id /usr/bin/dunst -config ~/.config/dunst/dunstrc
+exec /usr/bin/dunst -config ~/.config/dunst/dunstrc
 
 # Auto-tiling
-exec_always --no-startup-id autotiling
+exec --no-startup-id autotiling
 
 # System tray applications
-exec_always --no-startup-id nm-applet
+exec --no-startup-id nm-applet
 
 # Optimized application startup with staggered delays
 exec --no-startup-id sleep 2 && teams
