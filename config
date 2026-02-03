@@ -255,20 +255,22 @@ bindsym $mod+XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DE
 bindsym XF86AudioMicMute exec amixer sset Capture toggle
 
 # Media player controls
-bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioPlay exec --no-startup-id playerctl -a play-pause
 bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF66AudioStop exec --no-startup-id playerctl stop
 
-bindsym $mod+F9 exec --no-startup-id playerctl play-pause
+bindsym $mod+F9 exec --no-startup-id playerctl -a play-pause
 bindsym $mod+F10 exec --no-startup-id playerctl next
 bindsym $mod+F8 exec --no-startup-id playerctl previous
+bindsym $mod+F11 exec --no-startup-id playerctl stop
 
 # Brightness control
 bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/volume_brightness brightness_up
 bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/volume_brightness brightness_down
 # Alternative bindings for laptops without dedicated keys
-bindsym $mod+F12 exec --no-startup-id ~/.config/i3/scripts/volume_brightness brightness_up
-bindsym $mod+F11 exec --no-startup-id ~/.config/i3/scripts/volume_brightness brightness_down
+# bindsym $mod+F12 exec --no-startup-id ~/.config/i3/scripts/volume_brightness brightness_up
+# bindsym $mod+F11 exec --no-startup-id ~/.config/i3/scripts/volume_brightness brightness_down
 ####################
 # Screenshot Tools
 ####################
