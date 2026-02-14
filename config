@@ -133,9 +133,6 @@ bindsym $mod+Shift+s exec --no-startup-id ~/.screenlayout/single.sh
 bindsym $mod+Shift+m exec --no-startup-id ~/.screenlayout/extended.sh
 bindsym $mod+m exec --no-startup-id ~/.screenlayout/mirror.sh
 
-# Power Profiles Switcher
-bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/power-profiles
-
 # Bluetooth toggle 
 bindsym $mod+Shift+b exec --no-startup-id sudo /usr/bin/rfkill toggle bluetooth 
 # Bluetooth men
