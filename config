@@ -85,7 +85,7 @@ client.urgent		    	$urgentred	$urgentred	$white		$yellowbrown	$darkbluetrans
 #################
 
 bar {
-    font pango: JetBrains Mono Nerd Font 10
+    font pango: JetBrains Mono Nerd Font 11
     status_command i3blocks -c ~/.config/i3/i3blocks.conf
     position top
     
@@ -130,8 +130,9 @@ bindsym $mod+F1 exec --no-startup-id ~/.config/i3/scripts/keyhint-2
 
 # Custom monitor configuration
 bindsym $mod+Shift+s exec --no-startup-id ~/.screenlayout/single.sh
-bindsym $mod+Shift+m exec --no-startup-id ~/.screenlayout/extended.sh
+bindsym $mod+Shift+m exec --no-startup-id ~/.screenlayout/extended-right.sh
 bindsym $mod+m exec --no-startup-id ~/.screenlayout/mirror.sh
+bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/screen-layout
 
 # Bluetooth toggle 
 bindsym $mod+Shift+b exec --no-startup-id sudo /usr/bin/rfkill toggle bluetooth 
@@ -146,7 +147,7 @@ bindsym $mod+Shift+z exec --no-startup-id dunstctl history-pop
 
 
 # Audio port switcher
-# bindsym $mod+p exec --no-startup-id /usr/local/bin/switch-audio-port
+# bindsym $mod+p exec --no-startup-id /usr/local/bin/switch-audio-porte
 
 # Window/Container Control
 # Focus movement - vim-style
@@ -339,7 +340,7 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id ~/.screenlayout/single.sh
 
 # Set wallpaper - randomized
-exec_always --no-startup-id sleep 1 && feh --randomize --bg-fill ~/Pictures/wallpapers/*.png
+exec_always --no-startup-id sleep 1 && feh --randomize --bg-fill ~/Pictures/wallpapers/*
 
 # Power management
 exec --no-startup-id xset s 600 dpms 0 0 800
