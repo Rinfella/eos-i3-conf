@@ -11,7 +11,7 @@ declare -a display_list
 
 # Check directory
 if [ ! -d "$LAYOUT_DIR" ]; then
-    notify-send "Error" "Layout directory $LAYOUT_DIR not found!" -u critical
+    notify-send -u critical "Error" "Layout directory $LAYOUT_DIR not found!" 
     exit 1
 fi
 
@@ -43,18 +43,31 @@ while IFS= read -r file; do
 
 done < <(find "$LAYOUT_DIR" -maxdepth 1 -name "*.sh" | sort)
 
+# Cancel Button
+# Apppend a cancel option at the end of the list
+display_list+=("  Cancel")
+
+# Line count to fit the number of options
+line_count=${#display_list[@]}
+
+# Calculate width based on longest display String
+calculated_width="$(( max_str_len ))ch"
+
 # ROFI EXECUTION
 # -format i returns the index (0, 1, 2...) of the selection
-selected_index=$(printf "%s\n" "${display_list[@]}" | rofi -dmenu -i -theme "$ROFI_THEME" -format i)
+selected_index=$(printf "%s\n" "${display_list[@]}" | ROFI_WIDTH="$calculated_width" ROFI_LINES="$line_count" rofi -dmenu -i -theme "$ROFI_THEME" -lines "$line_count" -p "Layout" -format i)
+
+# Exit if nothing selected or if "Cancel" is chosen
+if [ -z "$selected_index" ] || [ "$selected_index" -eq $((line_count - 1)) ]; then
+    exit 0
+fi
 
 # APPLY SELECTION
-if [ -n "$selected_index" ]; then
-    target_script="${file_list[$selected_index]}"
+target_script="${file_list[$selected_index]}"
     
-    if [ -x "$target_script" ]; then
-        "$target_script"
-        eval "$WALLPAPER_CMD"
-        i3-msg restart
-        notify-send "Display Layout" "Applied: $(basename "$target_script" .sh)" -i video-display
-    fi
+if [ -x "$target_script" ]; then
+    "$target_script"
+    eval "$WALLPAPER_CMD"
+    i3-msg restart
+    notify-send "Display Layout" "Applied: $(basename "$target_script" .sh)" -i video-display
 fi
