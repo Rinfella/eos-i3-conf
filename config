@@ -135,7 +135,7 @@ bindsym $mod+m exec --no-startup-id ~/.screenlayout/mirror.sh
 bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/screen-layout
 
 # Bluetooth toggle 
-bindsym $mod+Shift+b exec --no-startup-id sudo /usr/bin/rfkill toggle bluetooth 
+bindsym $mod+Shift+b exec --no-startup-id sudo rfkill toggle bluetooth && pkill -RTMIN+10 i3blocks
 # Bluetooth men
 bindsym $mod+b exec --no-startup-id kitty -e bluetui
 
